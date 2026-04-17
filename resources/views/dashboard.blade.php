@@ -1,71 +1,117 @@
 @extends('layout')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Dashboard Kasir</h1>
+<div class="container-fluid">
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
+    <!-- Judul halaman -->
+    <h1 class="mb-4 fs-4 fs-md-3">Dashboard Kasir</h1>
+
+    <!-- Section Card Statistik -->
+    <div class="row g-3 g-md-4 mb-4">
+
+        <!-- Card Total Pelanggan -->
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="card text-white bg-success h-100 shadow">
-                <div class="card-body text-center d-flex flex-column justify-content-center">
-                    <h5 class="card-title">Total Pelanggan</h5>
-                    <p class="display-5 fw-bold">{{ $totalPelanggan }}</p>
+                <div class="card-body text-center">
+                    <h6 class="card-title fs-6">Total Pelanggan</h6>
+                    <p class="fs-1 fw-bold">{{ $totalPelanggan }}</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+
+        <!-- Card Total Produk -->
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="card text-dark bg-warning h-100 shadow">
-                <div class="card-body text-center d-flex flex-column justify-content-center">
-                    <h5 class="card-title">Total Produk</h5>
-                    <p class="display-5 fw-bold">{{ $totalProduk }}</p>
+                <div class="card-body text-center">
+                    <h6 class="card-title fs-6">Total Produk</h6>
+                    <p class="fs-1 fw-bold">{{ $totalProduk }}</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+
+        <!-- Card Total Penjualan -->
+        <div class="col-12 col-lg-4">
             <div class="card text-white bg-primary h-100 shadow">
-                <div class="card-body text-center d-flex flex-column justify-content-center">
-                    <h5 class="card-title">Total Penjualan</h5>
-                    <p class="display-5 fw-bold">{{ $totalPenjualan }}</p>
+                <div class="card-body text-center">
+                    <h6 class="card-title fs-6">Total Penjualan</h6>
+                    <p class="fs-1 fw-bold">{{ $totalPenjualan }}</p>
                 </div>
             </div>
         </div>
+
     </div>
 
+    <!-- Section Tabel Penjualan -->
     <div class="card shadow-sm">
+
+        <!-- Header tabel -->
         <div class="card-header bg-light">
-            <h5 class="mb-0">Penjualan Terakhir</h5>
+            <h5 class="mb-0 fs-6 fs-md-5">Penjualan Terakhir</h5>
         </div>
+
+        <!-- Body tabel -->
         <div class="card-body p-0">
-            <table class="table table-striped table-hover m-0">
-                <thead class="table-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>Pelanggan</th>
-                        <th>Total Harga</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($penjualanTerakhir as $penjualan)
+
+            <!-- Membuat tabel bisa discroll di layar kecil -->
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover m-0">
+
+                    <!-- Header kolom -->
+                    <thead class="table-primary text-nowrap">
+                        <tr>
+                            <th>ID</th>
+                            <th>Pelanggan</th>
+                            <th>Total Harga</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Isi data -->
+                    <tbody>
+                        @foreach ($penjualanTerakhir as $penjualan)
                         <tr>
                             <td>{{ $penjualan->id }}</td>
+
+                            <!-- Menampilkan nama pelanggan (jika ada) -->
                             <td>{{ $penjualan->pelanggan->nama_pelanggan ?? '-' }}</td>
-                            <td>Rp{{ number_format($penjualan->total_harga, 0, ',', '.') }}</td>
-                            <td>{{ $penjualan->tanggal_penjualan }}</td>
+
+                            <!-- Format mata uang -->
+                            <td class="text-nowrap">
+                                Rp{{ number_format($penjualan->total_harga, 0, ',', '.') }}
+                            </td>
+
+                            <!-- Tanggal penjualan -->
+                            <td class="text-nowrap">
+                                {{ $penjualan->tanggal_penjualan }}
+                            </td>
+
+                            <!-- Tombol aksi -->
                             <td>
-                                <a href="{{ route('penjualan.show', $penjualan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="{{ route('penjualan.show', $penjualan->id) }}" 
+                                   class="btn btn-info btn-sm">
+                                   Detail
+                                </a>
                             </td>
                         </tr>
-                    @endforeach
-                    @if ($penjualanTerakhir->isEmpty())
+                        @endforeach
+
+                        <!-- Jika tidak ada data -->
+                        @if ($penjualanTerakhir->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center text-muted">Belum ada penjualan</td>
+                            <td colspan="5" class="text-center text-muted">
+                                Belum ada penjualan
+                            </td>
                         </tr>
-                    @endif
-                </tbody>
-            </table>
+                        @endif
+
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </div>
+
 </div>
 @endsection

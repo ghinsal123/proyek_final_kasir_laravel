@@ -1,21 +1,62 @@
 @extends('layout')
 
 @section('content')
-<div class="container mt-4">
-    <h2><i class="bi bi-person-vcard-fill me-2"></i>Detail Pelanggan</h2>
+<div class="container-fluid mt-4">
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <p><i class="bi bi-person-fill me-2"></i><strong>Nama:</strong> {{ $pelanggan->nama_pelanggan }}</p>
-            <p><i class="bi bi-telephone-fill me-2"></i><strong>Nomor Telepon:</strong> {{ $pelanggan->nomor_telepon }}</p>
-            <p><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> {{ $pelanggan->email }}</p>
-            <p><i class="bi bi-geo-alt-fill me-2"></i><strong>Alamat:</strong> {{ $pelanggan->alamat }}</p>
-            <p><i class="bi bi-calendar-plus-fill me-2"></i><strong>Dibuat pada:</strong> {{ $pelanggan->created_at->format('d M Y H:i') }}</p>
-            <p><i class="bi bi-calendar-check-fill me-2"></i><strong>Diperbarui pada:</strong> {{ $pelanggan->updated_at->format('d M Y H:i') }}</p>
+    <!-- Wrapper biar card ke tengah -->
+    <div class="row justify-content-center">
 
-            <a href="{{ route('pelanggan.index') }}" class="btn btn-secondary mt-3">
-                <i class="bi bi-arrow-left-circle me-1"></i>Kembali
-            </a>
+        <!-- Lebar card di desktop -->
+        <div class="col-12 col-md-10 col-lg-6">
+
+            <!-- Judul -->
+            <h2 class="mb-4 fs-4 fs-md-3">
+                <i class="bi bi-person-vcard-fill me-2"></i>
+                Detail Pelanggan
+            </h2>
+
+            <!-- Card -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <!-- Data pelanggan -->
+                    <p class="fs-6">
+                        <strong>Nama:</strong> {{ $pelanggan->nama_pelanggan }}
+                    </p>
+
+                    <p class="fs-6">
+                        <strong>Nomor Telepon:</strong> {{ $pelanggan->nomor_telepon }}
+                    </p>
+
+                    <p class="fs-6">
+                        <strong>Email:</strong> {{ $pelanggan->email }}
+                    </p>
+
+                    <p class="fs-6">
+                        <strong>Alamat:</strong> {{ $pelanggan->alamat }}
+                    </p>
+
+                    <p class="fs-6 text-nowrap">
+                        <strong>Dibuat pada:</strong> 
+                        {{ $pelanggan->created_at->format('d M Y H:i') }}
+                    </p>
+
+                    <p class="fs-6 text-nowrap">
+                        <strong>Diperbarui pada:</strong> 
+                        {{ $pelanggan->updated_at->format('d M Y H:i') }}
+                    </p>
+
+                    <!-- Tombol -->
+                    <div class="mt-4">
+                        <a href="{{ route('pelanggan.index') }}" 
+                           class="btn btn-secondary btn-sm">
+                            Kembali
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
