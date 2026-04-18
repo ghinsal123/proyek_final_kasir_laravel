@@ -2,47 +2,43 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+// Menggunakan fitur authentication bawaan Laravel
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /**
+     * Trait untuk factory (seeding data user)
+     */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Atribut yang boleh diisi secara mass assignment
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',     // Nama user
+        'email',    // Email user
+        'password', // Password user (akan di-hash otomatis)
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Atribut yang disembunyikan saat data di-serialize (JSON / array)
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password',       // Password tidak ditampilkan
+        'remember_token', // Token login tetap disembunyikan
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Melakukan casting tipe data otomatis
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime', // Format tanggal verifikasi email
+            'password' => 'hashed',            // Password otomatis di-hash saat disimpan
         ];
     }
 }

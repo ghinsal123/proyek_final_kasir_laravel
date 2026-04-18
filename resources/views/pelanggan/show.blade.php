@@ -3,52 +3,57 @@
 @section('content')
 <div class="container-fluid mt-4">
 
-    <!-- Wrapper biar card ke tengah -->
+    <!-- Wrapper untuk menengahkan card -->
     <div class="row justify-content-center">
 
-        <!-- Lebar card di desktop -->
+        <!-- Mengatur lebar card agar responsif -->
         <div class="col-12 col-md-10 col-lg-6">
 
-            <!-- Judul -->
+            <!-- Judul halaman -->
             <h2 class="mb-4 fs-4 fs-md-3">
                 <i class="bi bi-person-vcard-fill me-2"></i>
                 Detail Pelanggan
             </h2>
 
-            <!-- Card -->
+            <!-- Card detail pelanggan -->
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <!-- Data pelanggan -->
+                    <!-- Menampilkan nama pelanggan -->
                     <p class="fs-6">
                         <strong>Nama:</strong> {{ $pelanggan->nama_pelanggan }}
                     </p>
 
+                    <!-- Menampilkan nomor telepon -->
                     <p class="fs-6">
                         <strong>Nomor Telepon:</strong> {{ $pelanggan->nomor_telepon }}
                     </p>
 
+                    <!-- Menampilkan email pelanggan -->
                     <p class="fs-6">
                         <strong>Email:</strong> {{ $pelanggan->email }}
                     </p>
 
+                    <!-- Menampilkan alamat pelanggan -->
                     <p class="fs-6">
                         <strong>Alamat:</strong> {{ $pelanggan->alamat }}
                     </p>
 
+                    <!-- Menampilkan tanggal dibuat (format rapi) -->
                     <p class="fs-6 text-nowrap">
-                        <strong>Dibuat pada:</strong> 
+                        <strong>Dibuat pada:</strong>
                         {{ $pelanggan->created_at->format('d M Y H:i') }}
                     </p>
 
+                    <!-- Menampilkan tanggal update terakhir -->
                     <p class="fs-6 text-nowrap">
-                        <strong>Diperbarui pada:</strong> 
+                        <strong>Diperbarui pada:</strong>
                         {{ $pelanggan->updated_at->format('d M Y H:i') }}
                     </p>
 
-                    <!-- Tombol -->
+                    <!-- Tombol kembali ke halaman index -->
                     <div class="mt-4">
-                        <a href="{{ route('pelanggan.index') }}" 
+                        <a href="{{ route('pelanggan.index') }}"
                            class="btn btn-secondary btn-sm">
                             Kembali
                         </a>

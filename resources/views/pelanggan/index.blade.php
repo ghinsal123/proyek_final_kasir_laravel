@@ -1,20 +1,19 @@
 @extends('layout')
 
 @section('content')
-<div class="container-fluid"> <!-- Container full lebar agar konsisten dengan dashboard -->
+<div class="container-fluid">
 
     <!-- Judul halaman -->
     <h1 class="mb-4 fs-4 fs-md-3">Data Pelanggan</h1>
-    <!-- fs = font size (responsive), mb-4 = margin bawah -->
 
-    <!-- Alert jika ada pesan sukses -->
+    <!-- Menampilkan pesan sukses jika ada session success -->
     @if(session('success'))
         <div class="alert alert-success fs-6">
             {{ session('success') }}
         </div>
     @endif
 
-    <!-- Tombol tambah pelanggan -->
+    <!-- Tombol menuju form tambah pelanggan -->
     <div class="mb-3">
         <a href="{{ route('pelanggan.create') }}" class="btn btn-primary btn-sm">
             Tambah Pelanggan
@@ -23,7 +22,6 @@
 
     <!-- Card pembungkus tabel -->
     <div class="card shadow-sm">
-        <!-- shadow-sm = bayangan ringan -->
 
         <!-- Header card -->
         <div class="card-header bg-light">
@@ -32,20 +30,15 @@
 
         <!-- Body card -->
         <div class="card-body p-0">
-            <!-- p-0 = padding dihapus biar tabel full -->
 
-            <!-- Membuat tabel responsive (bisa scroll horizontal di HP) -->
+            <!-- Membuat tabel responsive agar bisa scroll di layar kecil -->
             <div class="table-responsive">
 
-                <!-- Tabel -->
+                <!-- Tabel data pelanggan -->
                 <table class="table table-striped table-hover m-0">
-                    <!-- table-striped = garis selang-seling -->
-                    <!-- table-hover = efek hover -->
-                    <!-- m-0 = hilangkan margin -->
 
                     <!-- Header tabel -->
                     <thead class="table-primary text-nowrap">
-                        <!-- text-nowrap = teks tidak turun -->
                         <tr>
                             <th>Kode</th>
                             <th>Nama</th>
@@ -58,49 +51,59 @@
 
                     <!-- Isi tabel -->
                     <tbody>
+
+                        <!-- Loop data pelanggan -->
                         @forelse ($pelanggan as $item)
                         <tr>
-                            <!-- Data pelanggan -->
+
+                            <!-- Kode pelanggan -->
                             <td>{{ $item->kode_pelanggan }}</td>
 
-                            <!-- Nama ditebalkan -->
+                            <!-- Nama pelanggan (dibuat tebal) -->
                             <td class="fw-semibold">
                                 {{ $item->nama_pelanggan }}
                             </td>
 
-                            <!-- Tidak turun ke bawah -->
+                            <!-- Nomor telepon -->
                             <td class="text-nowrap">
                                 {{ $item->nomor_telepon }}
                             </td>
 
+                            <!-- Email pelanggan -->
                             <td>{{ $item->email }}</td>
+
+                            <!-- Alamat pelanggan -->
                             <td>{{ $item->alamat }}</td>
 
-                            <!-- Tombol aksi -->
+                            <!-- Tombol aksi (detail, edit, hapus) -->
                             <td class="text-nowrap">
-                                <!-- Detail -->
-                                <a href="{{ route('pelanggan.show', $item->id) }}" 
+
+                                <!-- Button lihat detail -->
+                                <a href="{{ route('pelanggan.show', $item->id) }}"
                                    class="btn btn-info btn-sm">
                                     Detail
                                 </a>
 
-                                <!-- Edit -->
-                                <a href="{{ route('pelanggan.edit', $item->id) }}" 
+                                <!-- Button edit data -->
+                                <a href="{{ route('pelanggan.edit', $item->id) }}"
                                    class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
 
-                                <!-- Hapus -->
-                                <form action="{{ route('pelanggan.destroy', $item->id) }}" 
-                                      method="POST" 
+                                <!-- Form hapus data -->
+                                <form action="{{ route('pelanggan.destroy', $item->id) }}"
+                                      method="POST"
                                       class="d-inline"
                                       onsubmit="return confirm('Yakin ingin hapus?')">
+
                                     @csrf
                                     @method('DELETE')
+
                                     <button class="btn btn-danger btn-sm">
                                         Hapus
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
 
@@ -112,6 +115,7 @@
                             </td>
                         </tr>
                         @endforelse
+
                     </tbody>
 
                 </table>
@@ -120,7 +124,7 @@
         </div>
     </div>
 
-    <!-- Pagination -->
+    <!-- Pagination Laravel -->
     <div class="d-flex justify-content-center mt-3">
         {{ $pelanggan->links() }}
     </div>
